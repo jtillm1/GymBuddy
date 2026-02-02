@@ -20,3 +20,4 @@
     2. Show personal training services - .
     3. View customer statistics -  .
     4. Show prices and reviews  .
+Jace Tillman
