@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gym Owner Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Gym Profile</h2>
+
+        <form id="gymProfileForm">
+            <label for="gymName">Gym Name</label>
+            <input type="text" id="gymName" placeholder="Enter gym name" required>
+
+            <label for="location">Location</label>
+            <input type="text" id="location" placeholder="Address" required>
+
+            <label for="amenities">Amenities</label>
+            <input type="text" id="amenities" placeholder="Showers, Sauna, etc">
+
+            <label for="equipmentStyle">Equipment Style</label>
+            <select id="equipmentStyle" required>
+                <option value="">Select equipment style</option>
+                <option value="bodybuilding">Bodybuilding</option>
+                <option value="powerlifting">Powerlifting</option>
+                <option value="crossfit">CrossFit</option>
+                <option value="general">General Fitness</option>
+            </select>
+
+            <label for="membershipPlans">Membership Plans</label>
+            <input type="text" id="membershipPlans" placeholder="$40/month, $400/year">
+
+            <label for="gymPictures">Upload Gym Pictures</label>
+            <input type="file" id="gymPictures" accept="image/*" multiple>
+
+            <button type="submit">Save Gym Profile</button>
+        </form>
+
+        <a href="homepage.html">Logout</a>
+    </div>
+
+</body>
+</html>
