@@ -1,23 +1,23 @@
 # sp26-project-template
 ## Title
 > GymBuddy
-## Team Members
-> Team Member #1 Jace Tillman \
 
-> Team Member #2 Joseph Osoh
+## Team Members
+> Joseph Osoh 
+
+> Jace Tillman
 
 ## Description 
-> The GymBuddy app, is an app to help anyone who would like to get into fitness, find a gym thats right for them. Most people will have to go to gyms that they find just locally and have to sign a contract before they see what the gym is like. With GymBuddy they can get a scope of the environment, personal trainers, as well as locations for gyms that are in a certain radius of their liking. 
+> GymBuddy is a web based platform that matches adults to gyms. Customers can make a profile where they add personal perferences like location, workout style, and price range while also being able to leave reviews on gyms. Gyms can post their facilities on the page and also list their equipment, highlight/pictures of their gym, membership prices, and personal trainers available.  The system supports multiple user roles including customers and providers; each with tailored services to ensure a vibrant, transparent, and community-driven marketplace.
 
 ## App Functions
 1. Customer (the user with the customer role):
-    1. Create/modify customer profile - <how will your app do this?>
-    2. View available gyms in the area - <how will your app do this?>.
-    3. Apply to memberships directly from the app - <how will your app do this?>.
-    4. Write and look through reviews - <how will your app do this?>.
+    1. Create/modify customer profile - <Create a personal profile with your own preferences>
+    2. View available services - <Browse available gyms >.
+    3. Subscribe to available services - <Subscribe to gym memberships or plans>.
+    4. Write reviews for subscribed services - <Customers can leave reviews on any gyms they have been too.>.
 2. Provider (the user with the provider role):
-    1. Show off gyms features - .
-    2. Show personal training services - .
-    3. View customer statistics -  .
-    4. Show prices and reviews  .
-Jace Tillman
+    1. Create/modify/remove provider profile - Register as a gym
+    2. Create services - leave membership plans listes while also giving descritions on the gym
+    3. View customer statistics -  View customer retention
+    4. Reply to reviews - Reply to feedback
