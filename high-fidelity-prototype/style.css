@@ -541,3 +541,13 @@ ul li strong ~ * {
 .gym-link strong {
     transition: color 0.2s ease;
 }
+
+/* ══════════════════════════════
+   LOGO
+══════════════════════════════ */
+
+.logo {
+    width: 150px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.5s ease both;
+}
