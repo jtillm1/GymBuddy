@@ -1,64 +1,543 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f4f4f4;
-    text-align: center;
-    margin: 0;
-    padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+:root {
+    --bg-primary: #0a0a0a;
+    --bg-card: #161616;
+    --border: #2a2a2a;
+    --border-hover: #444444;
+    --accent: #c8ff00;
+    --accent-dim: rgba(200, 255, 0, 0.08);
+    --text-primary: #f0f0f0;
+    --text-secondary: #888888;
+    --text-muted: #555555;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-primary);
+    background-image:
+        radial-gradient(ellipse at 20% 10%, #1a1a1a 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 90%, #131313 0%, transparent 60%);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+/* ── Shared animation ── */
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════
+   HOMEPAGE  (GymBuddy landing)
+══════════════════════════════ */
+
 .main-title {
-    margin-top: 30px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 12vw, 8rem);
+    letter-spacing: 0.06em;
+    color: var(--text-primary);
+    line-height: 1;
+    animation: fadeUp 0.5s ease both;
 }
 
 .subtitle {
-    margin-bottom: 30px;
-    color: gray;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    margin-top: 10px;
+    margin-bottom: 56px;
+    animation: fadeUp 0.5s ease 0.1s both;
 }
 
 .container {
     display: flex;
-    justify-content: center;
-    gap: 40px;
+    gap: 16px;
+    width: 100%;
+    max-width: 640px;
+    animation: fadeUp 0.5s ease 0.2s both;
 }
 
 .card {
-    background: white;
-    padding: 30px;
-    width: 250px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    flex: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.25s ease, background 0.25s ease;
 }
 
-button {
-    margin-top: 10px;
-    padding: 8px 15px;
-    width: 100%;
+.card:hover {
+    border-color: var(--border-hover);
+    background: #1a1a1a;
+}
+
+.card:hover h2 {
+    color: var(--accent);
+}
+
+.card h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.08em;
+    color: var(--text-primary);
+    transition: color 0.25s ease;
+}
+
+.card p {
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.card a {
+    display: block;
+    text-decoration: none;
     border: none;
-    background-color: #007bff;
-    color: white;
+    padding: 0;
+    margin: 0;
+    background: none;
+}
+
+.card a:hover {
+    background: none;
+    color: inherit;
+}
+
+.card button {
+    width: 100%;
+    padding: 11px 0;
+    border-radius: 5px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #0a0a0a;
 }
 
-button.secondary {
-    background-color: gray;
+.card button:hover {
+    transform: translateY(-2px);
+    background: #d9ff33;
+    border-color: #d9ff33;
 }
 
-button:hover {
-    opacity: 0.9;
+.card button.secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border-color: var(--border);
 }
+
+.card button.secondary:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ══════════════════════════════
+   GYM LIST PAGE
+══════════════════════════════ */
 
 .form-container {
-    background: white;
-    width: 300px;
-    margin: 60px auto;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 680px;
+    animation: fadeUp 0.6s ease both;
 }
 
-input, select {
+.form-container h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.2rem;
+    letter-spacing: 0.08em;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.form-container h2::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: var(--accent);
+    margin-top: 12px;
+    margin-bottom: 36px;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+ul li {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 24px;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    cursor: default;
+    animation: fadeUp 0.6s ease both;
+}
+
+ul li:nth-child(1) { animation-delay: 0.05s; }
+ul li:nth-child(2) { animation-delay: 0.10s; }
+ul li:nth-child(3) { animation-delay: 0.15s; }
+ul li:nth-child(4) { animation-delay: 0.20s; }
+ul li:nth-child(5) { animation-delay: 0.25s; }
+ul li:nth-child(6) { animation-delay: 0.30s; }
+ul li:nth-child(7) { animation-delay: 0.35s; }
+ul li:nth-child(8) { animation-delay: 0.40s; }
+
+ul li:hover {
+    border-color: var(--border-hover);
+    background: #1c1c1c;
+    transform: translateX(4px);
+}
+
+ul li strong {
+    display: block;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    transition: color 0.2s ease;
+}
+
+ul li:hover strong {
+    color: var(--accent);
+}
+
+ul li strong ~ * {
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    line-height: 1.7;
+}
+
+.form-container > a {
+    display: inline-block;
+    margin-top: 40px;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.form-container > a:hover {
+    color: var(--bg-primary);
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+/* ══════════════════════════════
+   LOGIN / AUTH FORM PAGE
+══════════════════════════════ */
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+}
+
+.form-container form input {
     width: 100%;
-    padding: 8px;
-    margin: 8px 0;
-    box-sizing: border-box;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-container form input::placeholder {
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+}
+
+.form-container form input:focus {
+    border-color: var(--accent);
+    background: #1a1a1a;
+    box-shadow: 0 0 0 3px rgba(200, 255, 0, 0.06);
+}
+
+.form-container form button[type="submit"] {
+    margin-top: 4px;
+    width: 100%;
+    padding: 13px 0;
+    border-radius: 6px;
+    background: var(--accent);
+    color: #0a0a0a;
+    border: 1px solid var(--accent);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+}
+
+.form-container form button[type="submit"]:hover {
+    background: #d9ff33;
+    border-color: #d9ff33;
+    transform: translateY(-2px);
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 480px) {
+    .container {
+        flex-direction: column;
+    }
+}
+
+/* ══════════════════════════════
+   PREFERENCES FORM PAGE
+══════════════════════════════ */
+
+.form-container form label {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 8px;
+    margin-bottom: -4px;
+}
+
+.form-container form select {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555555' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-container form select:focus {
+    border-color: var(--accent);
+    background-color: #1a1a1a;
+    box-shadow: 0 0 0 3px rgba(200, 255, 0, 0.06);
+}
+
+.form-container form select option {
+    background: #1a1a1a;
+    color: var(--text-primary);
+}
+
+/* ══════════════════════════════
+   FILE UPLOAD INPUT
+══════════════════════════════ */
+
+.form-container form input[type="file"] {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 300;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.form-container form input[type="file"]:hover {
+    border-color: var(--accent);
+    background: #1a1a1a;
+    color: var(--text-secondary);
+}
+
+.form-container form input[type="file"]::file-selector-button {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-secondary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    margin-right: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.form-container form input[type="file"]:hover::file-selector-button {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ══════════════════════════════
+   REVIEW PAGE
+══════════════════════════════ */
+
+.form-container textarea {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    outline: none;
+    resize: vertical;
+    min-height: 120px;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-container textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.form-container textarea:focus {
+    border-color: var(--accent);
+    background: #1a1a1a;
+    box-shadow: 0 0 0 3px rgba(200, 255, 0, 0.06);
+}
+
+/* Star rating */
+
+.star-rating {
+    display: flex;
+    gap: 6px;
+    margin: 4px 0;
+}
+
+.star {
+    font-size: 2rem;
+    color: var(--border-hover);
+    cursor: pointer;
+    transition: color 0.15s ease, transform 0.15s ease;
+    user-select: none;
+}
+
+.star:hover,
+.star.active {
+    color: var(--accent);
+    transform: scale(1.15);
+}
+
+/* Reviews list */
+
+.reviews-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-top: 48px;
+    margin-bottom: 16px;
+}
+
+.reviews-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.review-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 22px;
+    transition: border-color 0.2s ease;
+    animation: fadeUp 0.4s ease both;
+}
+
+.review-card:hover {
+    border-color: var(--border-hover);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.review-author {
+    font-weight: 500;
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+}
+
+.review-stars {
+    color: var(--accent);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+.review-text {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.7;
+}
+
+.new-review {
+    border-color: var(--accent) !important;
+    animation: fadeUp 0.4s ease both;
+}
+
+/* Gym list links */
+
+.gym-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.gym-link strong {
+    transition: color 0.2s ease;
 }

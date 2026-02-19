@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leave a Review</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <h2 id="gym-title">Leave a Review</h2>
+
+        <form id="reviewForm" onsubmit="submitReview(event)">
+
+            <label>Your Rating</label>
+            <div class="star-rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+            </div>
+            <input type="hidden" id="ratingValue" value="0">
+
+            <label for="reviewerName">Your Name</label>
+            <input type="text" id="reviewerName" placeholder="e.g. John D." required>
+
+            <label for="reviewText">Your Review</label>
+            <textarea id="reviewText" placeholder="What did you think of this gym?" rows="5" required></textarea>
+
+            <button type="submit">Submit Review</button>
+        </form>
+
+        <div id="reviews-section">
+            <h3 class="reviews-heading">Recent Reviews</h3>
+            <ul id="reviews-list" class="reviews-list">
+                <li class="review-card">
+                    <div class="review-header">
+                        <span class="review-author">Jace T.</span>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <p class="review-text">Amazing equipment and a great atmosphere. Staff are super helpful and the facility is always clean.</p>
+                </li>
+                <li class="review-card">
+                    <div class="review-header">
+                        <span class="review-author">Joseph O..</span>
+                        <span class="review-stars">★★★★☆</span>
+                    </div>
+                    <p class="review-text">Really solid gym. Gets a bit crowded in the evenings but off-peak hours are perfect.</p>
+                </li>
+            </ul>
+        </div>
+
+        <a href="customer-landing.html">← Back to Gyms</a>
+    </div>
+
+    <script>
+        // Set gym name from URL param
+        const params = new URLSearchParams(window.location.search);
+        const gymName = params.get('gym') || 'This Gym';
+        document.getElementById('gym-title').textContent = gymName;
+
+        // Star rating interaction
+        const stars = document.querySelectorAll('.star');
+        let selectedRating = 0;
+
+        stars.forEach(star => {
+            star.addEventListener('mouseover', () => {
+                highlightStars(star.dataset.value);
+            });
+            star.addEventListener('mouseout', () => {
+                highlightStars(selectedRating);
+            });
+            star.addEventListener('click', () => {
+                selectedRating = star.dataset.value;
+                document.getElementById('ratingValue').value = selectedRating;
+                highlightStars(selectedRating);
+            });
+        });
+
+        function highlightStars(count) {
+            stars.forEach(s => {
+                s.classList.toggle('active', s.dataset.value <= count);
+            });
+        }
+
+        // Submit review
+        function submitReview(e) {
+            e.preventDefault();
+            const rating = document.getElementById('ratingValue').value;
+            const name = document.getElementById('reviewerName').value.trim();
+            const text = document.getElementById('reviewText').value.trim();
+
+            if (rating === '0') {
+                alert('Please select a star rating.');
+                return;
+            }
+
+            const starStr = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+            const list = document.getElementById('reviews-list');
+
+            const li = document.createElement('li');
+            li.className = 'review-card new-review';
+            li.innerHTML = `
+                <div class="review-header">
+                    <span class="review-author">${name}</span>
+                    <span class="review-stars">${starStr}</span>
+                </div>
+                <p class="review-text">${text}</p>
+            `;
+
+            list.prepend(li);
+            e.target.reset();
+            selectedRating = 0;
+            highlightStars(0);
+
+            setTimeout(() => li.classList.remove('new-review'), 600);
+        }
+    </script>
+
+</body>
+</html>
