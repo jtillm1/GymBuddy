@@ -22,4 +22,28 @@ public class UserService {
     public List<User> getAllUsers() {
         return repo.findAll();
     }
+
+    public User getUserById(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    public User updateUser(Long id, User updatedUser) {
+        return repo.findById(id)
+                .map(user -> {
+                    user.setName(updatedUser.getName());
+                    user.setEmail(updatedUser.getEmail());
+                    user.setPassword(updatedUser.getPassword());
+                    user.setRole(updatedUser.getRole());
+                    user.setLocation(updatedUser.getLocation());
+                    user.setWorkoutStyle(updatedUser.getWorkoutStyle());
+                    user.setMaxBudget(updatedUser.getMaxBudget());
+                    return repo.save(user);
+                })
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    public void deleteUser(Long id) {
+        repo.deleteById(id);
+    }
 }
