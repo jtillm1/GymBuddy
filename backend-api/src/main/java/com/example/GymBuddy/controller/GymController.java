@@ -1,50 +1,31 @@
 package com.example.GymBuddy.controller;
 
 import com.example.GymBuddy.model.Gym;
-import com.example.GymBuddy.service.GymService;
+import com.example.GymBuddy.repository.GymRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/gyms")
-@CrossOrigin(origins = "*") // allows frontend connection
+@CrossOrigin("*")
 public class GymController {
 
-    private final GymService gymService;
+    private final GymRepository repo;
 
-    public GymController(GymService gymService) {
-        this.gymService = gymService;
+    public GymController(GymRepository repo) {
+        this.repo = repo;
     }
 
-    // GET all gyms
+    // ✅ Get all gyms
     @GetMapping
     public List<Gym> getAllGyms() {
-        return gymService.getAllGyms();
+        return repo.findAll();
     }
 
-    // GET gym by ID
+    // ✅ Get gym by ID
     @GetMapping("/{id}")
-    public Gym getGymById(@PathVariable Long id) {
-        return gymService.getGymById(id)
-                .orElseThrow(() -> new RuntimeException("Gym not found with id " + id));
-    }
-
-    // POST create gym
-    @PostMapping
-    public Gym createGym(@RequestBody Gym gym) {
-        return gymService.createGym(gym);
-    }
-
-    // PUT update gym
-    @PutMapping("/{id}")
-    public Gym updateGym(@PathVariable Long id, @RequestBody Gym gym) {
-        return gymService.updateGym(id, gym);
-    }
-
-    // DELETE gym
-    @DeleteMapping("/{id}")
-    public void deleteGym(@PathVariable Long id) {
-        gymService.deleteGym(id);
+    public Gym getGym(@PathVariable Long id) {
+        return repo.findById(id).orElseThrow();
     }
 }

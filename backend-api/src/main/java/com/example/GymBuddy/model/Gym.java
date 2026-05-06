@@ -14,56 +14,34 @@ public class Gym {
     private double price;
     private String description;
 
- public Gym() {
-    }
+    // 🆕 NEW FIELD
+    private boolean beginnerFriendly;
 
-    // Constructor without ID for creating new gyms
-    public Gym(String name, String location, double price, String description) {
+    public Gym() {}
+
+    public Gym(String name, String location, double price, String description, boolean beginnerFriendly) {
         this.name = name;
         this.location = location;
         this.price = price;
         this.description = description;
+        this.beginnerFriendly = beginnerFriendly;
     }
 
-    // Getters and Setters
+    public Long getId() { return id; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
 
-    public String getName() {
-        return name;
-    }
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    // 🆕 Getter/Setter
+    public boolean isBeginnerFriendly() { return beginnerFriendly; }
+    public void setBeginnerFriendly(boolean beginnerFriendly) { this.beginnerFriendly = beginnerFriendly; }
 }

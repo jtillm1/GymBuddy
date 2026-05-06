@@ -46,4 +46,9 @@ public class GymService {
     public void deleteGym(Long id) {
         gymRepository.deleteById(id);
     }
+
+    // Save gym (alias for create, used by owner forms)
+    public Gym saveGym(Gym gym) {
+        return gymRepository.save(gym);
+    }
 }

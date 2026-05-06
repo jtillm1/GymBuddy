@@ -189,18 +189,7 @@ Content-Type: application/json
 
 ---
 
-#### Get All Farmers
-**Endpoint:** `GET /gyms`
-**Use Case:** Browse providers
-**Description:** Retrieve all gym accounts.
 
-```http
-GET /gyms
-```
-
-**Status Code:** `200 OK`
-
----
 
 #### Get Gym by ID
 **Endpoint:** `GET /gyms/{id}`

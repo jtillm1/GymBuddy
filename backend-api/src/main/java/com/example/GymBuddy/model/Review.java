@@ -12,6 +12,9 @@ public class Review {
     private int rating;
     private String comment;
 
+    // 🆕 NEW FIELD
+    private String category;
+
     private String reply;
     private String replyDate;
 
@@ -32,6 +35,9 @@ public class Review {
 
     public String getComment() { return comment; }
     public void setComment(String comment) { this.comment = comment; }
+
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 
     public String getReply() { return reply; }
     public void setReply(String reply) { this.reply = reply; }

@@ -17,29 +17,39 @@ public class UserController {
         this.service = service;
     }
 
+    // ✅ REGISTER
     @PostMapping("/register")
     public User register(@RequestBody User user) {
+        user.setRole("CUSTOMER");
         return service.register(user);
     }
 
+    // ✅ GET ALL USERS (THIS FIXES YOUR ERROR)
     @GetMapping
     public List<User> getAllUsers() {
         return service.getAllUsers();
     }
 
-    @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return service.getUserById(id);
-    }
-
+    // ✅ UPDATE USER
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        return service.updateUser(id, user);
+    public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        return service.updateUser(id, updatedUser);
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable Long id) {
-        service.deleteUser(id);
-        return "User deleted";
+    // ✅ LOGIN
+    @PostMapping("/login")
+    public org.springframework.http.ResponseEntity<?> login(@RequestBody User loginRequest) {
+        String incomingEmail = loginRequest.getEmail() != null ? loginRequest.getEmail().trim().toLowerCase() : "";
+        String incomingPassword = loginRequest.getPassword() != null ? loginRequest.getPassword().trim() : "";
+
+        return service.getAllUsers().stream()
+            .filter(u -> {
+                String dbEmail = u.getEmail() != null ? u.getEmail().trim().toLowerCase() : "";
+                String dbPassword = u.getPassword() != null ? u.getPassword().trim() : "";
+                return dbEmail.equals(incomingEmail) && dbPassword.equals(incomingPassword);
+            })
+            .findFirst()
+            .<org.springframework.http.ResponseEntity<?>>map(u -> org.springframework.http.ResponseEntity.ok(u))
+            .orElse(org.springframework.http.ResponseEntity.status(401).body("Invalid email or password"));
     }
 }

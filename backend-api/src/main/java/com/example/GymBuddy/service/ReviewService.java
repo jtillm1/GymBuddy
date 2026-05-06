@@ -1,57 +1,61 @@
 package com.example.GymBuddy.service;
 
-import com.example.GymBuddy.model.*;
-import com.example.GymBuddy.repository.*;
+import com.example.GymBuddy.model.Review;
+import com.example.GymBuddy.model.User;
+import com.example.GymBuddy.model.Gym;
+import com.example.GymBuddy.repository.ReviewRepository;
+import com.example.GymBuddy.repository.UserRepository;
+import com.example.GymBuddy.repository.GymRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class ReviewService {
 
-    private final ReviewRepository reviewRepo;
-    private final UserRepository userRepo;
-    private final GymRepository gymRepo;
+    private final ReviewRepository reviewRepository;
+    private final UserRepository userRepository;
+    private final GymRepository gymRepository;
 
-    public ReviewService(ReviewRepository reviewRepo, UserRepository userRepo, GymRepository gymRepo) {
-        this.reviewRepo = reviewRepo;
-        this.userRepo = userRepo;
-        this.gymRepo = gymRepo;
+    public ReviewService(ReviewRepository reviewRepository,
+                         UserRepository userRepository,
+                         GymRepository gymRepository) {
+        this.reviewRepository = reviewRepository;
+        this.userRepository = userRepository;
+        this.gymRepository = gymRepository;
     }
 
+    // ✅ CREATE REVIEW (FIXED)
     public Review createReview(Long userId, Long gymId, Review review) {
-        User user = userRepo.findById(userId)
+
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Gym gym = gymRepo.findById(gymId)
+        Gym gym = gymRepository.findById(gymId)
                 .orElseThrow(() -> new RuntimeException("Gym not found"));
 
         review.setUser(user);
         review.setGym(gym);
 
-        return reviewRepo.save(review);
+        return reviewRepository.save(review);
     }
 
-    public List<Review> getAllReviews() {
-        return reviewRepo.findAll();
-    }
-
+    // ✅ GET REVIEWS BY GYM
     public List<Review> getReviewsByGym(Long gymId) {
-        return reviewRepo.findByGymId(gymId);
+        return reviewRepository.findByGymId(gymId);
     }
 
+    // ✅ GET REVIEWS BY USER (THIS FIXES YOUR ERROR)
     public List<Review> getReviewsByUser(Long userId) {
-        return reviewRepo.findByUserId(userId);
+        return reviewRepository.findByUserId(userId);
     }
 
-    public Review replyToReview(Long reviewId, String replyText) {
-        Review review = reviewRepo.findById(reviewId)
+    // ✅ OWNER REPLY TO A REVIEW
+    public Review replyToReview(Long reviewId, String reply) {
+        Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
-
-        review.setReply(replyText);
-        review.setReplyDate(LocalDate.now().toString());
-
-        return reviewRepo.save(review);
+        review.setReply(reply);
+        review.setReplyDate(java.time.LocalDate.now().toString());
+        return reviewRepository.save(review);
     }
 }

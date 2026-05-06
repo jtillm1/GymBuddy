@@ -9,41 +9,29 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private final UserRepository repo;
+    private final UserRepository userRepository;
 
-    public UserService(UserRepository repo) {
-        this.repo = repo;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public User register(User user) {
-        return repo.save(user);
+        return userRepository.save(user);
     }
 
     public List<User> getAllUsers() {
-        return repo.findAll();
-    }
-
-    public User getUserById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        return userRepository.findAll();
     }
 
     public User updateUser(Long id, User updatedUser) {
-        return repo.findById(id)
-                .map(user -> {
-                    user.setName(updatedUser.getName());
-                    user.setEmail(updatedUser.getEmail());
-                    user.setPassword(updatedUser.getPassword());
-                    user.setRole(updatedUser.getRole());
-                    user.setLocation(updatedUser.getLocation());
-                    user.setWorkoutStyle(updatedUser.getWorkoutStyle());
-                    user.setMaxBudget(updatedUser.getMaxBudget());
-                    return repo.save(user);
-                })
-                .orElseThrow(() -> new RuntimeException("User not found"));
-    }
+        User existing = userRepository.findById(id).orElseThrow();
 
-    public void deleteUser(Long id) {
-        repo.deleteById(id);
+        existing.setName(updatedUser.getName());
+        existing.setEmail(updatedUser.getEmail());
+        existing.setLocation(updatedUser.getLocation());
+        existing.setWorkoutStyle(updatedUser.getWorkoutStyle());
+        existing.setMaxBudget(updatedUser.getMaxBudget());
+
+        return userRepository.save(existing);
     }
 }
