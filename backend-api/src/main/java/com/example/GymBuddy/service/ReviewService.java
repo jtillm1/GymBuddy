@@ -58,4 +58,7 @@ public class ReviewService {
         review.setReplyDate(java.time.LocalDate.now().toString());
         return reviewRepository.save(review);
     }
+    public List<Review> getAllReviews() {
+    return reviewRepository.findAll();
+    }
 }

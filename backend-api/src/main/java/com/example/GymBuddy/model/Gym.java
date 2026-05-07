@@ -13,8 +13,9 @@ public class Gym {
     private String location;
     private double price;
     private String description;
-
-    // 🆕 NEW FIELD
+    private Long ownerId;
+    private String website;
+    
     private boolean beginnerFriendly;
 
     public Gym() {}
@@ -44,4 +45,11 @@ public class Gym {
     // 🆕 Getter/Setter
     public boolean isBeginnerFriendly() { return beginnerFriendly; }
     public void setBeginnerFriendly(boolean beginnerFriendly) { this.beginnerFriendly = beginnerFriendly; }
+
+    public String getWebsite() { return website; }
+    public void setWebsite(String website) { this.website = website; }
+    
+    public void setId(Long id) { this.id = id; }
+    public Long getOwnerId() { return ownerId; }
+    public void setOwnerId(Long ownerId) { this.ownerId = ownerId; }
 }

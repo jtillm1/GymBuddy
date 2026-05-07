@@ -1,5 +1,6 @@
 package com.example.GymBuddy.service;
 
+import com.example.GymBuddy.repository.ReviewRepository;
 import com.example.GymBuddy.model.Gym;
 import com.example.GymBuddy.repository.GymRepository;
 import org.springframework.stereotype.Service;
@@ -11,11 +12,14 @@ import java.util.Optional;
 public class GymService {
 
     private final GymRepository gymRepository;
+    private final ReviewRepository reviewRepository;
 
-    public GymService(GymRepository gymRepository) {
-        this.gymRepository = gymRepository;
+    public GymService(GymRepository gymRepository, ReviewRepository reviewRepository) {
+    this.gymRepository = gymRepository;
+    this.reviewRepository = reviewRepository;
     }
 
+    
     // Get all gyms
     public List<Gym> getAllGyms() {
         return gymRepository.findAll();
@@ -44,11 +48,29 @@ public class GymService {
 
     // Delete gym
     public void deleteGym(Long id) {
+        reviewRepository.deleteByGymId(id);
         gymRepository.deleteById(id);
     }
 
     // Save gym (alias for create, used by owner forms)
     public Gym saveGym(Gym gym) {
-        return gymRepository.save(gym);
+    if (gym.getId() != null && gym.getId() > 0) {
+        Gym existing = gymRepository.findById(gym.getId())
+            .orElseThrow(() -> new RuntimeException("Gym not found"));
+        existing.setName(gym.getName());
+        existing.setLocation(gym.getLocation());
+        existing.setPrice(gym.getPrice());
+        existing.setDescription(gym.getDescription());
+        existing.setWebsite(gym.getWebsite());
+        existing.setOwnerId(gym.getOwnerId());
+        return gymRepository.save(existing);
+    }
+    // New gym - make sure ID is null so Hibernate generates one
+    gym.setId(null);
+    return gymRepository.save(gym);
+    }
+    
+    public List<Gym> getGymsByOwner(Long ownerId) {
+    return gymRepository.findByOwnerId(ownerId);
     }
 }

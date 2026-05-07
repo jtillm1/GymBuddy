@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Gyms Near You</title>
+    <meta charset="UTF-8">
+    <title>Gyms Near You - GymBuddy</title>
     <link rel="stylesheet" href="/style.css">
     <style>
         .filters {
@@ -10,7 +11,7 @@
             margin-bottom: 24px;
             flex-wrap: wrap;
         }
-        .filters input, .filters select {
+        .filters input {
             flex: 1;
             min-width: 140px;
         }
@@ -27,10 +28,20 @@
 </head>
 <body>
 
+<nav class="navbar">
+    <div class="nav-left">
+        <img src="/GymBuddy.png" class="nav-logo">
+        <span class="nav-title">GymBuddy</span>
+    </div>
+    <div class="nav-right">
+        <a href="/gyms">Gyms</a>
+        <a href="/" onclick="localStorage.clear()"><button class="secondary">Sign Out</button></a>
+    </div>
+</nav>
+
 <div class="form-container">
     <h2>Gyms in your area:</h2>
 
-    <!-- 🔍 Filters -->
     <div class="filters">
         <input type="text" id="cityFilter" placeholder="Filter by city (e.g. Charlotte)" />
         <input type="number" id="maxPrice" placeholder="Max price per month" min="0" />
@@ -50,6 +61,9 @@
                 ${gym.location!""}<br>
                 ${gym.description!""}
             </a>
+            <#if gym.website?? && gym.website != "">
+                <a href="${gym.website}" target="_blank" style="font-size: 0.78rem; color: var(--accent); margin-top: 4px; display: inline-block;">Visit Website →</a>
+            </#if>
         </li>
         </#list>
     <#else>
@@ -58,23 +72,19 @@
     </ul>
 
     <p id="no-results">No gyms match your filters.</p>
-
-    <a href="/">Logout</a>
 </div>
 
 <script>
     function applyFilters() {
         const city = document.getElementById("cityFilter").value.trim().toLowerCase();
         const maxPrice = parseFloat(document.getElementById("maxPrice").value);
-
         const items = document.querySelectorAll(".gym-item");
         let visibleCount = 0;
 
         items.forEach(item => {
-            const location = item.dataset.location.toLowerCase();
+            const gymCity = item.dataset.location.split(",")[0].trim().toLowerCase();
             const price = parseFloat(item.dataset.price);
-
-            const cityMatch = !city || location.includes(city);
+            const cityMatch = !city || gymCity.includes(city) || city.includes(gymCity);
             const priceMatch = isNaN(maxPrice) || price <= maxPrice;
 
             if (cityMatch && priceMatch) {
@@ -95,7 +105,12 @@
         document.getElementById("no-results").style.display = "none";
     }
 
-    // Allow pressing Enter in filter fields to trigger search
+    const userLocation = localStorage.getItem("userLocation");
+    if (userLocation) {
+        document.getElementById("cityFilter").value = userLocation;
+        applyFilters();
+    }
+
     document.getElementById("cityFilter").addEventListener("keyup", e => { if (e.key === "Enter") applyFilters(); });
     document.getElementById("maxPrice").addEventListener("keyup", e => { if (e.key === "Enter") applyFilters(); });
 </script>

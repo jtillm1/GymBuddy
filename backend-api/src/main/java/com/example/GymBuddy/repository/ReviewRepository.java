@@ -10,4 +10,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findByGymId(Long gymId);
 
     List<Review> findByUserId(Long userId); // 🔥 REQUIRED
+    void deleteByGymId(Long gymId);
 }
