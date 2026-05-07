@@ -87,7 +87,6 @@ public class ViewController {
 
     @GetMapping("/gym/profile")
     public String gymProfile(Model model) {
-        // TODO: replace 1L with logged-in user's ID once auth is set up
         model.addAttribute("owner", userService.getUserById(1L));
         return "gym-profile";
     }
